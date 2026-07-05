@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+const baseURL = import.meta.env.VITE_API_BASE_URL 
+  ? `${import.meta.env.VITE_API_BASE_URL}/api` 
+  : 'http://localhost:8080/api';
+
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api', // Points to Spring Boot backend
+  baseURL: baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -35,7 +39,7 @@ api.interceptors.response.use(
         }
 
         // Call token refresh endpoint
-        const response = await axios.post('http://localhost:8080/api/auth/refresh', {
+        const response = await axios.post(`${baseURL}/auth/refresh`, {
           refreshToken: refreshToken,
         });
 
