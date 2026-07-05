@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-bg text-dark-text;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+/* Custom premium visual styles */
+.glass-card {
+  @apply bg-dark-card/80 border border-dark-border backdrop-blur-md rounded-xl shadow-lg;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  @apply border-primary/30 shadow-primary/5 shadow-xl;
+  transform: translateY(-2px);
+}
+
+/* Neon subtle glow effects */
+.glow-cyan {
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+}
+
+.glow-violet {
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
+}
+
+/* Custom Webkit scrollbar for sleek dark layout */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-dark-border rounded-full hover:bg-dark-muted;
+}
+
+/* Pulse animation for running/healthy nodes */
+@keyframes signal-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.2);
+  }
+}
+
+.signal-healthy {
+  background-color: #10B981;
+  box-shadow: 0 0 12px #10B981;
+  animation: signal-pulse 2s infinite ease-in-out;
+}
+
+.signal-warning {
+  background-color: #F59E0B;
+  box-shadow: 0 0 12px #F59E0B;
+  animation: signal-pulse 2s infinite ease-in-out;
+}
+
+.signal-danger {
+  background-color: #EF4444;
+  box-shadow: 0 0 16px #EF4444;
+  animation: signal-pulse 1.2s infinite ease-in-out;
+}
+
+/* SVG Tech Floor Flow Lines */
+@keyframes tech-dash-flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.flowline-active {
+  stroke-dasharray: 8, 8;
+  animation: tech-dash-flow 2s linear infinite;
+}
+
+.flowline-steam {
+  stroke-dasharray: 4, 8;
+  animation: tech-dash-flow 4s linear infinite;
+}
+
+.blueprint-grid {
+  background-size: 20px 20px;
+  background-image: 
+    linear-gradient(to right, rgba(30, 41, 59, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 41, 59, 0.4) 1px, transparent 1px);
+}
+
+/* Tech Floating Orbs for Login/Register Pages */
+@keyframes tech-drift-1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(50px, -70px) scale(1.15);
+  }
+}
+
+@keyframes tech-drift-2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-60px, 50px) scale(0.85);
+  }
+}
+
+.animate-drift-1 {
+  animation: tech-drift-1 15s infinite ease-in-out;
+}
+
+.animate-drift-2 {
+  animation: tech-drift-2 18s infinite ease-in-out;
+}
+
+.glow-card-border:focus-within {
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+}

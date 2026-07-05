@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: smart-mfg-monitor
+  profiles:
+    active: dev
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/smart_mfg?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:rootpassword}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# JWT Configurations
+app:
+  jwt:
+    secret: ${JWT_SECRET:9a4f895c1234567890abcdef1234567890abcdef1234567890abcdef12345678}
+    expiration-ms: 86400000 # 24 hours
+    refresh-expiration-ms: 604800000 # 7 days
+
+# Gemini API Integration
+gemini:
+  api-key: ${GEMINI_API_KEY:mock-key-for-now}
+  model: ${GEMINI_MODEL:gemini-1.5-flash}
+  pro-model: ${GEMINI_PRO_MODEL:gemini-1.5-pro}
+
+# Qdrant Vector DB
+qdrant:
+  host: ${QDRANT_HOST:localhost}
+  port: ${QDRANT_PORT:6334}
+
+# Cloudinary Storage
+cloudinary:
+  url: ${CLOUDINARY_URL:cloudinary://mock}
+  cloud-name: ${CLOUDINARY_CLOUD_NAME:mock-cloud}
+  api-key: ${CLOUDINARY_API_KEY:mock-key}
+  api-secret: ${CLOUDINARY_API_SECRET:mock-secret}
+
+# Server Config
+server:
+  port: 8080
+
+# Springdoc Swagger OpenAPI configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: method

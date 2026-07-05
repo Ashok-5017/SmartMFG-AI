@@ -1,0 +1,178 @@
+{
+  "info": {
+    "_postman_id": "c1a938b8-7c85-4df3-bf7b-23c8df917549",
+    "name": "Smart Manufacturing Monitoring API",
+    "description": "Postman Collection for testing Smart Manufacturing REST APIs (Auth, Telemetry, and AI Diagnostics).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"technician_dave\",\n  \"email\": \"dave@smartmfg.com\",\n  \"password\": \"Password123\",\n  \"roles\": [\"MAINTENANCE_ENGINEER\"]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usernameOrEmail\": \"technician_dave\",\n  \"password\": \"Password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Machines & Telemetry",
+      "item": [
+        {
+          "name": "Get All Machines",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{JWT_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/machines",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "machines"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ingest Telemetry Data",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{JWT_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"machineId\": 1,\n  \"temperature\": 95.5,\n  \"pressure\": 15.2,\n  \"vibration\": 6.2,\n  \"humidity\": 41.5,\n  \"voltage\": 415.0,\n  \"current\": 18.5,\n  \"rpm\": 2300.0,\n  \"runningHours\": 1852.1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/machines/telemetry",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "machines",
+                "telemetry"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "AI Diagnostics",
+      "item": [
+        {
+          "name": "Trigger Supervisor Diagnosis",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{JWT_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"machineId\": 1,\n  \"prompt\": \"Inspect CNC Machine for structural issues and thermal overheating.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/ai/diagnose",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "ai",
+                "diagnose"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
