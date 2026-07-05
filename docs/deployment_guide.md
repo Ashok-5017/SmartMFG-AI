@@ -89,3 +89,39 @@ Ensure persistent volume mounts are configured for MySQL (`/var/lib/mysql`) and 
 ```bash
 mysqldump -u root -pPassword123 smart_mfg > backup_$(date +%F).sql
 ```
+
+---
+
+## 4. Cloud PaaS Deployment (Vercel, Railway, & Render)
+
+For rapid, cost-efficient cloud hosting, follow these steps to link your GitHub repository to Vercel and Railway.
+
+### A. Database Provisioning (Railway MySQL)
+1. Go to [Railway.app](https://railway.app/) and create a new project.
+2. Click **+ Add Service** and select **MySQL Database**.
+3. Railway will provision a MySQL instance. Under the **Variables** tab of the MySQL service, copy the values for:
+   * `MYSQLHOST`
+   * `MYSQLPORT`
+   * `MYSQLPASSWORD`
+   * `MYSQLUSER`
+   * `MYSQLDATABASE`
+
+### B. Backend Deployment (Railway)
+1. Click **+ Add Service** in your Railway dashboard and select **GitHub Repo**.
+2. Select your `SmartMFG-AI` repository.
+3. In the service settings, set the **Root Directory** to `/backend`.
+4. Go to the **Variables** tab and add the following Environment Variables:
+   * `SPRING_DATASOURCE_URL` = `jdbc:mysql://${{MYSQLHOST}}:${{MYSQLPORT}}/${{MYSQLDATABASE}}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true`
+   * `SPRING_DATASOURCE_USERNAME` = `${{MYSQLUSER}}`
+   * `SPRING_DATASOURCE_PASSWORD` = `${{MYSQLPASSWORD}}`
+   * `SPRING_JPA_HIBERNATE_DDL_AUTO` = `update`
+5. Railway will automatically pick up the Java Maven setup, compile it, and deploy the service. Copy the generated public domain URL (e.g. `https://smartmfg-backend.up.railway.app`).
+
+### C. Frontend Deployment (Vercel)
+1. Go to [Vercel.com](https://vercel.com/) and create a new project.
+2. Import the `SmartMFG-AI` repository.
+3. In the configuration settings, set the **Framework Preset** to **Vite**.
+4. Set the **Root Directory** to `frontend`.
+5. Under **Environment Variables**, add:
+   * `VITE_API_BASE_URL` = `https://<your-railway-backend-url>.up.railway.app` (using the URL copied in the previous step).
+6. Click **Deploy**. Vercel will compile the Vite assets and serve the static files over a secure HTTPS endpoint.
